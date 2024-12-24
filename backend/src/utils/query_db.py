@@ -21,13 +21,12 @@ def query_db(query, params=None, type=None):
         conn.commit()
         if "SELECT" in query:
             response = curr.fetchall()
-            print(response)
             if not response:
-                raise Exception(f"query did not return any results")
+                raise Exception("query did not return any results")
             if not params:
-                raise Exception(f"params for query is empty")
+                raise Exception("params for query is empty")
             if not type:
-                raise Exception(f"query type is not defined")
+                raise Exception("query type is not defined")
             data = []
             for i in response:
                 mapping = dict(zip(params, i))
@@ -43,6 +42,6 @@ def query_db(query, params=None, type=None):
     except Exception as e:
         conn.rollback()
         if "duplicate key value violates unique constraint" in str(e):
-            return { "error" : "username already exists" }
+            return {"error" : "username already exists"}
         else:
-            return { "error" : str(e) }
+            return {"error" : str(e)}

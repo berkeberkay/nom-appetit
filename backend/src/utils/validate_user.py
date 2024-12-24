@@ -17,4 +17,4 @@ def validate_user(username, password):
         return username
         
     except Exception as e:
-        return { "error" : str(e) }
+        return {"error" : str(e)}

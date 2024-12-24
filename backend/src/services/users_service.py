@@ -9,13 +9,3 @@ def post_user(username, password):
     """
     response = query_db(query)
     return response
-
-def get_user(username):
-    query = f"""
-        SELECT *
-        FROM users
-        WHERE username = '{username}';
-    """
-    params = ["username", "password"]
-    response = query_db(query, params, "row")
-    return response

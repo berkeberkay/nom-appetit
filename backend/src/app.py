@@ -1,9 +1,11 @@
 from flask import Flask
-from routes.user_route import user
+from routes.users_route import users
 from routes.token_route import token
+from routes.profiles_route import profiles
 
 app = Flask(__name__)
 
 # routes
-app.register_blueprint(user)
+app.register_blueprint(users)
 app.register_blueprint(token)
+app.register_blueprint(profiles)

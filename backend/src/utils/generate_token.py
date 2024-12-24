@@ -12,4 +12,4 @@ def generate_token(username, secret_key):
         return token
     
     except Exception as e:
-        return { "error" : str(e) }
+        return {"error" : str(e)}
