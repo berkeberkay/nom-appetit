@@ -41,7 +41,4 @@ def query_db(query, params=None, type=None):
 
     except Exception as e:
         conn.rollback()
-        if "duplicate key value violates unique constraint" in str(e):
-            return {"error" : "username already exists"}
-        else:
-            return {"error" : str(e)}
+        return {"error" : str(e)}
