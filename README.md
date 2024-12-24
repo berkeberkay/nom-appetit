@@ -29,7 +29,8 @@ DB_PASS = [PostgreSQL password]
 DB_HOST = [PostgreSQL host (default: localhost)]
 DB_PORT = [PostgreSQL port (default: 5432)]
 DB_NAME = [PostgreSQL database]
-SERVER_KEY = [JWT secret key]             
+SERVER_KEY = [JWT secret key]        
+YELP_KEY = [Yelp Fusion API key]       
 ```
 3. Install the required Python modules
 ```
