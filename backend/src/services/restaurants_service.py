@@ -17,12 +17,9 @@ def search_restaurants(location, latitude, longitude, keywords):
         params = {
             "radius": 25000,
             "sort_by": "rating",
-            "limit": 25
+            "limit": 25,
+            "term": keywords + " " + "Restaurant"
         }
-        if keywords: 
-            params["term"] = "restaurant" + keywords
-        else:
-            params["term"] = "restaurant"
         if location:
             params["location"] = location
         elif longitude and latitude:
