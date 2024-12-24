@@ -19,7 +19,7 @@ def post_token_route():
             raise Exception("username is missing") 
         if not password:
             raise Exception("password is missing")
-        response = post_token(username, password, SECRET_KEY)
+        response = create_token(username, password, SECRET_KEY)
         if "error" in response:
             raise Exception(response.get("error")) 
         return {"data" : response}, 200

@@ -4,7 +4,7 @@ from flask import Blueprint, request
 profiles = Blueprint("profiles", __name__)
 
 @profiles.get("/profiles/<username>")
-def get_profile_route(username):
+def get_profiles_route(username):
     try:
         if not username:
             raise Exception("username is missing") 

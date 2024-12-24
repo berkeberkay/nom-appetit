@@ -1,7 +1,7 @@
 from utils.generate_token import generate_token
 from utils.validate_user import validate_user
 
-def post_token(username, password, secret_key):
+def create_token(username, password, secret_key):
     try:
         response = validate_user(username, password)
         if "error" in response:

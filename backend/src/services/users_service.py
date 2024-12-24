@@ -1,7 +1,7 @@
 from utils.query_db import query_db
 import bcrypt
 
-def post_user(username, password):
+def create_user(username, password):
     hash_password = bcrypt.hashpw(password.encode("UTF-8"), bcrypt.gensalt())
     query = f"""
         INSERT INTO users (username, password)

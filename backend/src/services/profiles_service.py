@@ -1,6 +1,6 @@
 from utils.query_db import query_db
 
-def post_profile(username):
+def create_profile(username):
     query = f"""
         INSERT INTO profiles (username, preferences, saved)
         VALUES ('{username}', '', ''); 
