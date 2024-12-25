@@ -18,10 +18,22 @@
 - [Yelp Fusion API](https://docs.developer.yelp.com/docs/fusion-intro)
 
 ## Installation
-To get a local copy up and running follow these simple example steps:
+To set up a local copy, follow these steps:
+
+### Recommendation
+1. Navigate to the `recommendation` directory.
+2. Download the dataset from [Kaggle](https://www.kaggle.com/datasets/yelp-dataset/yelp-dataset/versions/3), and place all the files into the `data` directory.
+3. Install the required Python packages.
+```
+pip install -r requirements.txt
+```
+4. Run the server.
+```
+flask run
+```
 
 ### Backend
-1. Navigate to the `backend` directory
+1. Navigate to the `backend` directory.
 2. Set up the `.env` file with the following environment variables:
 ```
 DB_USER = [PostgreSQL username]
@@ -32,11 +44,11 @@ DB_NAME = [PostgreSQL database]
 SERVER_KEY = [JWT secret key]        
 YELP_KEY = [Yelp Fusion API key]       
 ```
-3. Install the required Python modules
+3. Install the required Python packages.
 ```
 pip install -r requirements.txt
 ```
-4. Run the server
+4. Run the server.
 ```
 flask run
 ```
