@@ -1,9 +1,11 @@
 from services.restaurants_service import *
+from utils.token_required import token_required
 from flask import Blueprint, request
 
 restaurants = Blueprint("restaurants", __name__)
 
 @restaurants.get("/restaurants")
+@token_required
 def get_restaurants_route():
     try:
         location = request.args.get('location')

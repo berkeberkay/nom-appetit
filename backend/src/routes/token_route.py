@@ -5,7 +5,7 @@ import os
 
 load_dotenv()
 
-SECRET_KEY = os.getenv("SECRET_KEY") 
+JWT_KEY = os.getenv("JWT_KEY") 
 
 token = Blueprint("token", __name__)
 
@@ -19,7 +19,7 @@ def post_token_route():
             raise Exception("username is missing") 
         if not password:
             raise Exception("password is missing")
-        response = create_token(username, password, SECRET_KEY)
+        response = create_token(username, password, JWT_KEY)
         if "error" in response:
             raise Exception(response.get("error")) 
         return {"data" : response}, 200

@@ -1,9 +1,11 @@
 from services.profiles_service import * 
-from flask import Blueprint, request
+from utils.token_required import token_required
+from flask import Blueprint
 
 profiles = Blueprint("profiles", __name__)
 
 @profiles.get("/profiles/<username>")
+@token_required
 def get_profiles_route(username):
     try:
         if not username:
