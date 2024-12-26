@@ -16,13 +16,13 @@ def post_token_route():
         username = data.get("username")
         password = data.get("password")
         if not username:
-            raise Exception("username is missing") 
+            raise Exception("Username is required") 
         if not password:
-            raise Exception("password is missing")
+            raise Exception("Password is required")
         response = create_token(username, password, JWT_KEY)
         if "error" in response:
             raise Exception(response.get("error")) 
-        return {"data" : response}, 200
+        return {"token" : response}, 200
 
     except Exception as e:
         return {"error" : str(e)}, 400

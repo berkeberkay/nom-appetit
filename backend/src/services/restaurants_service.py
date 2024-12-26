@@ -26,7 +26,7 @@ def search_restaurants(location, latitude, longitude, keywords):
             params["longitude"] = longitude
             params["latitude"] = latitude
         else:
-            raise Exception("a valid location or both longitude and latitude must be defined")
+            raise Exception("A valid location or both longitude and latitude must be defined")
         response = requests.get(SEARCH_URL, params=params, headers=headers).json()
         if "error" in response:
             raise Exception(response.get("error"))

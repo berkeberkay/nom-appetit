@@ -22,11 +22,11 @@ def query_db(query, params=None, type=None):
         if "SELECT" in query:
             response = curr.fetchall()
             if not response:
-                raise Exception("query did not return any results")
+                raise Exception("Query did not return any results")
             if not params:
-                raise Exception("params for query is empty")
+                raise Exception("Params for query is empty")
             if not type:
-                raise Exception("query type is not defined")
+                raise Exception("Query type is not defined")
             data = []
             for i in response:
                 mapping = dict(zip(params, i))

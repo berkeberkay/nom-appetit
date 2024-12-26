@@ -9,10 +9,12 @@ def create_user(username, password):
             VALUES ('{username}', '{hash_password.decode("UTF-8")}'); 
         """
         response = query_db(query)
+        if "error" in response:
+            raise Exception(response.get("error"))
         return response
     
     except Exception as e:
         if "duplicate key value violates unique constraint" in str(e):
-            return {"error" : "username already exists"}
+            return {"error" : "Username is already taken"}
         else:
             return {"error" : str(e)}

@@ -17,13 +17,13 @@ def token_required(func):
                 raise Exception("authorization header is missing") 
             token = request.headers["Authorization"].split()[1]
             if not token:
-                raise Exception("token is missing")
+                raise Exception("Token is missing")
             try: 
                 jwt.decode(token, JWT_KEY, algorithms="HS256")
             except jwt.InvalidTokenError:
-                raise Exception("token is invalid")
+                raise Exception("Token is invalid")
             except jwt.ExpiredSignatureError:
-                raise Exception("token has expired")
+                raise Exception("Token has expired")
 
         except Exception as e:
             return {"error" : str(e)}, 401

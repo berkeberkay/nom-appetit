@@ -15,7 +15,7 @@ def get_restaurants_route():
         response = search_restaurants(location, latitude, longitude, keywords)
         if "error" in response:
             raise Exception(response.get("error")) 
-        return {"data" : response}, 200
+        return {"restaurants" : response}, 200
 
     except Exception as e:
         return {"error" : str(e)}, 400

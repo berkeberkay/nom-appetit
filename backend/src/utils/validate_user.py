@@ -13,7 +13,7 @@ def validate_user(username, password):
         if "error" in response:
             raise Exception(response)
         if not bcrypt.checkpw(password.encode("UTF-8"), response.get("password").encode("UTF-8")):
-            raise Exception("invalid password")
+            raise Exception("Invalid password")
         return username
         
     except Exception as e:

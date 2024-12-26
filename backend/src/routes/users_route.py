@@ -18,19 +18,16 @@ def post_users_route():
         username = data.get("username")
         password = data.get("password")
         if not username:
-            raise Exception("username is missing") 
+            raise Exception("Username is required") 
         if not password:
-            raise Exception("password is missing")
+            raise Exception("Password is required")
         response_users = create_user(username, password)
         if response_users and "error" in response_users:
             raise Exception(response_users.get("error"))
         response_profiles = create_profile(username)
         if response_profiles and "error" in response_profiles:
             raise Exception(response_profiles.get("error"))
-        response_token = create_token(username, password, SECRET_KEY)
-        if response_token and "error" in response_token:
-            raise Exception(response_token.get("error"))
-        return {"token" : response_token}, 200
+        return {"username" : username}, 200
 
     except Exception as e:
         return {"error" : str(e)}, 400
