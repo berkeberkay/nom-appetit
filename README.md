@@ -20,35 +20,25 @@
 ## Installation
 To set up a local copy, follow these steps:
 
-### Recommendation
-1. Navigate to the `recommendation` directory.
-2. Download the dataset from [Kaggle](https://www.kaggle.com/datasets/yelp-dataset/yelp-dataset/versions/3), and place `yelp_academic_dataset_business.json` into the `data` directory.
-3. Install the required Python packages.
-```
-pip install -r requirements.txt
-```
-4. Run the server.
-```
-flask run
-```
-
 ### Backend
 1. Navigate to the `backend` directory.
-2. Configure the `.env` file with the following environment variables:
+2. Create a `data` directory at the root level.
+3. Download the dataset from [Kaggle](https://www.kaggle.com/datasets/yelp-dataset/yelp-dataset/versions/3) and place the `yelp_academic_dataset_business.json` file inside the `data` directory.
+4. Configure the `.env` file with the following environment variables:
 ```
-YELP_KEY = [YELP FUSION API KEY]
-SECRET_KEY = [JWT SECRET KEY]     
-DB_USER = [POSTGRES USERNAME]
-DB_PASS = [POSTGRES PASSWORD]
-DB_HOST = [POSTGRES HOST]
-DB_PORT = [POSTGRES PORT]
-DB_NAME = [POSTGRES DATABASE NAME]
+DB_USER = [PostgreSQL Username]  
+DB_PASS = [PostgreSQL Password]  
+DB_HOST = [PostgreSQL Host]  
+DB_PORT = [PostgreSQL Port]  
+DB_NAME = [PostgreSQL Database Name]  
+JWT_KEY = [JWT Secret]  
+YELP_KEY = [Yelp Fusion API Key]  
 ```
-3. Install the required Python packages.
+5. Install the required Python packages by running:
 ```
 pip install -r requirements.txt
 ```
-4. Run the server.
+6. Navigate to the `src` directory and start the server by running:
 ```
 flask run
 ```
