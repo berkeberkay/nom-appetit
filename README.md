@@ -22,7 +22,7 @@ To set up a local copy, follow these steps:
 
 ### Recommendation
 1. Navigate to the `recommendation` directory.
-2. Download the dataset from [Kaggle](https://www.kaggle.com/datasets/yelp-dataset/yelp-dataset/versions/3), and place all the files into the `data` directory.
+2. Download the dataset from [Kaggle](https://www.kaggle.com/datasets/yelp-dataset/yelp-dataset/versions/3), and place `yelp_academic_dataset_business.json` into the `data` directory.
 3. Install the required Python packages.
 ```
 pip install -r requirements.txt
@@ -34,15 +34,15 @@ flask run
 
 ### Backend
 1. Navigate to the `backend` directory.
-2. Set up the `.env` file with the following environment variables:
+2. Configure the `.env` file with the following environment variables:
 ```
-DB_USER = [PostgreSQL username]
-DB_PASS = [PostgreSQL password]
-DB_HOST = [PostgreSQL host (default: localhost)]
-DB_PORT = [PostgreSQL port (default: 5432)]
-DB_NAME = [PostgreSQL database]
-SERVER_KEY = [JWT secret key]        
-YELP_KEY = [Yelp Fusion API key]       
+YELP_KEY = [YELP FUSION API KEY]
+SECRET_KEY = [JWT SECRET KEY]     
+DB_USER = [POSTGRES USERNAME]
+DB_PASS = [POSTGRES PASSWORD]
+DB_HOST = [POSTGRES HOST]
+DB_PORT = [POSTGRES PORT]
+DB_NAME = [POSTGRES DATABASE NAME]
 ```
 3. Install the required Python packages.
 ```
