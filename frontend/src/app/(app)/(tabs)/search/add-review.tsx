@@ -11,6 +11,7 @@ import "react-native-get-random-values";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSession } from "src/context/SessionContext";
 import { v4 as uuidv4 } from "uuid";
+import { isValidImageUrl } from "../../../../utils/image";
 
 export default function AddReview() {
   const { onLogout } = useSession();
@@ -117,11 +118,19 @@ export default function AddReview() {
                 horizontal
                 data={postImage}
                 keyExtractor={(item, index) => item.uri + index.toString()}
-                renderItem={({ item }) => (
-                  <View style={{ justifyContent: "center", marginHorizontal: 5 }}>
-                    <Image source={{ uri: item }} style={{ width: 70, height: 70, borderRadius: 8 }} />
-                  </View>
-                )}
+                renderItem={({ item }) => {
+                  console.log("SearchAddReview IMAGE SOURCE:", item);
+                  const isValid = isValidImageUrl(item);
+                  return (
+                    <View style={{ justifyContent: "center", marginHorizontal: 5 }}>
+                      {isValid ? (
+                        <Image source={{ uri: item }} style={{ width: 70, height: 70, borderRadius: 8 }} />
+                      ) : (
+                        <View style={{ width: 70, height: 70, borderRadius: 8, backgroundColor: "#ccc" }} />
+                      )}
+                    </View>
+                  );
+                }}
               />
             ) : (
               <Icon name="photo-camera" type="material" color="#C8C8C8" size={40} />

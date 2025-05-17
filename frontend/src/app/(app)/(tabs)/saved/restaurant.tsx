@@ -189,33 +189,37 @@ export default function Restaurant() {
 
   return (
     <View style={styles.main}>
-      <ImageBackground
-        source={{
-          uri: imageUrl,
-        }}
-        style={styles.backgroundImage}
-      >
-        <SafeAreaView style={styles.backgroundImageContainer}>
-          <Navigation
-            leftIcon="arrow-left"
-            leftNavigationOnPress={() => router.back()}
-            middleIcon="note-edit-outline"
-            middleNavigationOnPress={() =>
-              router.push({
-                pathname: "saved/add-review",
-                params: {
-                  restaurant_id: restaurant_id,
-                  name: restaurantName,
-                  image_url: imageUrl,
-                },
-              })
-            }
-            rightIcon={isSaved ? "heart" : "heart-outline"}
-            rightNavigationOnPress={() => saveRestaurant()}
-            color="#FFFFFF"
-          />
-        </SafeAreaView>
-      </ImageBackground>
+      {typeof imageUrl === "string" && imageUrl.startsWith("http") ? (
+        <ImageBackground
+          source={{ uri: imageUrl }}
+          style={styles.backgroundImage}
+        >
+          <SafeAreaView style={styles.backgroundImageContainer}>
+            <Navigation
+              leftIcon="arrow-left"
+              leftNavigationOnPress={() => router.back()}
+              middleIcon="note-edit-outline"
+              middleNavigationOnPress={() =>
+                router.push({
+                  pathname: "saved/add-review",
+                  params: {
+                    restaurant_id: restaurant_id,
+                    name: restaurantName,
+                    image_url: imageUrl,
+                  },
+                })
+              }
+              rightIcon={isSaved ? "heart" : "heart-outline"}
+              rightNavigationOnPress={() => saveRestaurant()}
+              color="#FFFFFF"
+            />
+          </SafeAreaView>
+        </ImageBackground>
+      ) : (
+        <View style={[styles.backgroundImage, { backgroundColor: "#aaa" }]}> 
+          <Text style={{ color: "#fff", textAlign: "center" }}>Görsel yüklenemedi</Text>
+        </View>
+      )}
       <View style={styles.contentContainer}>
         <ScrollView contentContainerStyle={styles.scrollContentContainer}>
           <View style={styles.restaurantInfoContainer}>
@@ -251,22 +255,24 @@ export default function Restaurant() {
               </View>
             </View>
             <Pressable style={styles.directionContainer} onPress={openMaps}>
-              <Image
-                source={{
-                  uri:
-                    "https://maps.googleapis.com/maps/api/staticmap?center=" +
-                    coordinates["latitude"] +
-                    "," +
-                    coordinates["longitude"] +
-                    "&zoom=15&size=600x300&maptype=roadmap&markers=color:red|" +
-                    coordinates["latitude"] +
-                    "," +
-                    coordinates["longitude"] +
-                    "&key=" +
-                    process.env.EXPO_PUBLIC_GOOGLE_KEY,
-                }}
-                style={styles.directionImage}
-              />
+              {typeof coordinates["latitude"] === "number" && typeof coordinates["longitude"] === "number" && process.env.EXPO_PUBLIC_GOOGLE_KEY ? (
+                <Image
+                  source={{
+                    uri:
+                      "https://maps.googleapis.com/maps/api/staticmap?center=" +
+                      coordinates["latitude"] +
+                      "," +
+                      coordinates["longitude"] +
+                      "&zoom=15&size=600x300&maptype=roadmap&markers=color:red|" +
+                      coordinates["latitude"] +
+                      "," +
+                      coordinates["longitude"] +
+                      "&key=" +
+                      process.env.EXPO_PUBLIC_GOOGLE_KEY,
+                  }}
+                  style={styles.directionImage}
+                />
+              ) : null}
             </Pressable>
           </View>
           <View style={styles.reviewsContainer}>
@@ -286,7 +292,7 @@ export default function Restaurant() {
                   rating={item.rating}
                   profile_picture={item.profile_picture}
                   picture_id={item.picture_id}
-                  image_urls={item.image_urls}
+                  image_urls={Array.isArray(item.image_urls) ? item.image_urls.filter((url) => typeof url === "string" && url.startsWith("http")) : []}
                 />
               )}
             />

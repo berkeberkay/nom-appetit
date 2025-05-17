@@ -52,7 +52,11 @@ const EditProfile = () => {
       </SafeAreaView>
       <View style={styles.innerContainer}>
         <Pressable onPress={pickImage}>
-          <Image source={{ uri: image as string }} style={styles.image} />
+          {typeof image === "string" && image.startsWith("http") ? (
+            <Image source={{ uri: image }} style={styles.image} />
+          ) : (
+            <View style={[styles.image, { backgroundColor: "#eee" }]} />
+          )}
           <FontAwesome name="camera" size={26} color="#1A1A1A" style={styles.cameraIcon} />
         </Pressable>
         <View style={styles.inputContent}>

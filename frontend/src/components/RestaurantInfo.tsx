@@ -3,6 +3,7 @@ import { router } from "expo-router";
 import React, { useState } from "react";
 import { Alert, Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Icon } from "react-native-elements";
+import { isValidImageUrl } from "../utils/image";
 
 interface Coordinate {
   latitude: number;
@@ -51,6 +52,8 @@ export default function RestaurantInfo(props: RestaurantProps) {
   const rating = props.rating;
   const isDistance = props.isDistance;
 
+  console.log("RestaurantInfo IMAGE SOURCE:", image_url);
+
   return (
     <Pressable
       onPress={() =>
@@ -63,13 +66,15 @@ export default function RestaurantInfo(props: RestaurantProps) {
       }
     >
       <View style={styles.container}>
-        <Image
-          source={{
-            uri: image_url || "https://eldermoraes.com/wp-content/uploads/2023/05/placeholder.png",
-          }}
-          style={styles.image}
-          resizeMode="cover"
-        />
+        {isValidImageUrl(image_url) ? (
+          <Image
+            source={{ uri: image_url }}
+            style={styles.image}
+            resizeMode="cover"
+          />
+        ) : (
+          <View style={[styles.image, { backgroundColor: "#ccc" }]} />
+        )}
         <View style={styles.headerContainer}>
           <Text style={styles.name}>{name}</Text>
         </View>

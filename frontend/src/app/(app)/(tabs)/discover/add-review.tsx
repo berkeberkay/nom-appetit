@@ -116,12 +116,22 @@ export default function AddReview() {
               <FlatList
                 horizontal
                 data={postImage}
-                keyExtractor={(item, index) => item.uri + index.toString()}
-                renderItem={({ item }) => (
-                  <View style={{ justifyContent: "center", marginHorizontal: 5 }}>
-                    <Image source={{ uri: item }} style={{ width: 70, height: 70, borderRadius: 8 }} />
-                  </View>
-                )}
+                keyExtractor={(item, index) => item + index.toString()}
+                renderItem={({ item }) => {
+                  const isValidUri = typeof item === "string" && item.startsWith("http");
+                  return (
+                    <View style={{ justifyContent: "center", marginHorizontal: 5 }}>
+                      {isValidUri ? (
+                        <Image
+                          source={{ uri: item }}
+                          style={{ width: 70, height: 70, borderRadius: 8 }}
+                        />
+                      ) : (
+                        <View style={{ width: 70, height: 70, borderRadius: 8, backgroundColor: "#ccc" }} />
+                      )}
+                    </View>
+                  );
+                }}
               />
             ) : (
               <Icon name="photo-camera" type="material" color="#C8C8C8" size={40} />

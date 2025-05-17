@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { Avatar, Icon } from "react-native-elements";
 import ImageView from "react-native-image-viewing";
+import { isValidImageUrl } from "../utils/image";
 
 interface ReviewInfoProps {
   user_id: string;
@@ -37,19 +38,28 @@ export const ReviewInfo = (props: ReviewInfoProps) => {
   const openImage = (index: number) => {
     setImageArray([]);
     for (const imageURL of props.image_urls) {
-      const imageDict = {
-        uri: imageURL,
-      };
-      setImageArray((prevArray) => [...prevArray, imageDict]);
+      if (typeof imageURL === "string" && imageURL.startsWith("http")) {
+        const imageDict = {
+          uri: imageURL,
+        };
+        setImageArray((prevArray) => [...prevArray, imageDict]);
+      }
     }
     setSelectedImageIndex(index);
     setIsVisible(true);
   };
 
+  console.log("ReviewInfo PROFILE PICTURE:", props.profile_picture);
+  console.log("ReviewInfo IMAGE URLS:", props.image_urls);
+
   return (
     <View style={styles.container}>
       <View style={styles.profile}>
-        <Avatar source={{ uri: props.profile_picture }} size={34} avatarStyle={styles.avatar} />
+        {isValidImageUrl(props.profile_picture) ? (
+          <Avatar source={{ uri: props.profile_picture }} size={34} avatarStyle={styles.avatar} />
+        ) : (
+          <View style={styles.avatar} />
+        )}
         <View style={styles.profileInfoContainer}>
           <Text style={styles.name}>{props.user_name}</Text>
           <View style={styles.infoTextContainer}>
@@ -70,9 +80,9 @@ export const ReviewInfo = (props: ReviewInfoProps) => {
       <View style={styles.reviewTextContainer}>
         <Text style={styles.reviewText}>{props.review}</Text>
       </View>
-      {props.image_urls && props.image_urls.length > 0 && (
+      {Array.isArray(props.image_urls) && props.image_urls.filter(isValidImageUrl).length > 0 && (
         <ScrollView style={styles.imageContainer} contentContainerStyle={styles.imageContainerStyle} horizontal>
-          {props.image_urls.map((imageUri, index) => (
+          {props.image_urls.filter(isValidImageUrl).map((imageUri, index) => (
             <Pressable key={index} onPress={() => openImage(index)}>
               <Image source={{ uri: imageUri }} style={styles.foodImage} />
             </Pressable>
