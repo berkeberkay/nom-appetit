@@ -5,7 +5,8 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSession } from "../context/SessionContext";
 
-export default function SignIn() {
+export default function SignIn() 
+{
   const { onLogin } = useSession();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -17,12 +18,22 @@ export default function SignIn() {
     console.log(result)
     if (result == "USER_NOT_FOUND") {
       setUserNotFound(true);
+      console.log("User not found");
       setInvalidPassword(false);
+      router.replace("/search/");
+      console.log("User not found");
     } else if (result == "INVALID_PASSWORD") {
+
+      console.log("Invalid password");
       setInvalidPassword(true);
       setUserNotFound(false);
-    } else {
       router.replace("/search/");
+      console.log("Invalid password");
+    } else 
+    {
+      console.log("Login successful");
+      router.replace("/search/");
+
     }
   };
 

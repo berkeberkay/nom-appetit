@@ -24,7 +24,7 @@ export default function Restaurant() {
   ]);
   const [coordinates, setCoordinates] = useState({ latitude: 0, longitude: 0 });
   const [restaurantName, setRestaurantName] = useState("");
-  const [imageUrl, setImageUrl] = useState("https://eldermoraes.com/wp-content/uploads/2023/05/placeholder.png");
+  const [imageUrl, setImageUrl] = useState("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
   const [location, setLocation] = useState({
     address1: "",
     address2: "",
@@ -101,6 +101,8 @@ export default function Restaurant() {
       } else {
         const updatedReviews = [];
         for (const review of reviews) {
+          // Görsel çekme ve işleme geçici olarak devre dışı
+          /*
           // get all review images
           const picture_id = review["picture_id"];
           const user_id = review["user_id"];
@@ -113,9 +115,15 @@ export default function Restaurant() {
           const profile_picture_ref = ref(FIREBASE_STORAGE, `users/${user_id}.jpg`);
           const profile_picture = await getDownloadURL(profile_picture_ref);
           review["profile_picture"] = profile_picture;
+          */
+
+          // Placeholder değerler ata
+          review["image_urls"] = [];
+          review["profile_picture"] = "";
+
           // get user info
           const params = {
-            "user_id": user_id
+            "user_id": review["user_id"] // review objesi içindeki user_id'yi kullan
           }
           const response = await axios.get(process.env.EXPO_PUBLIC_SERVER_URL + "/getOtherUserInfo", { params });
           const { invalid_token, user_info } = response.data;
@@ -189,37 +197,57 @@ export default function Restaurant() {
 
   return (
     <View style={styles.main}>
-      {typeof imageUrl === "string" && imageUrl.startsWith("http") ? (
-        <ImageBackground
-          source={{ uri: imageUrl }}
-          style={styles.backgroundImage}
-        >
-          <SafeAreaView style={styles.backgroundImageContainer}>
-            <Navigation
-              leftIcon="arrow-left"
-              leftNavigationOnPress={() => router.back()}
-              middleIcon="note-edit-outline"
-              middleNavigationOnPress={() =>
-                router.push({
-                  pathname: "search/add-review",
-                  params: {
-                    restaurant_id: restaurant_id,
-                    name: restaurantName,
-                    image_url: imageUrl,
-                  },
-                })
-              }
-              rightIcon={isSaved ? "heart" : "heart-outline"}
-              rightNavigationOnPress={() => saveRestaurant()}
-              color="#FFFFFF"
-            />
-          </SafeAreaView>
-        </ImageBackground>
-      ) : (
-        <View style={[styles.backgroundImage, { backgroundColor: "#aaa" }]}> 
-          <Text style={{ color: "#fff", textAlign: "center" }}>Görsel yüklenemedi</Text>
-        </View>
-      )}
+      {/* Görsel gösterimi devre dışı: Arka plan görseli */}
+      {/* <ImageBackground
+        source={{ uri: imageUrl }}
+        style={styles.backgroundImage}
+      >
+        <SafeAreaView style={styles.backgroundImageContainer}>
+          <Navigation
+            leftIcon="arrow-left"
+            leftNavigationOnPress={() => router.back()}
+            middleIcon="note-edit-outline"
+            middleNavigationOnPress={() =>
+              router.push({
+                pathname: "search/add-review",
+                params: {
+                  restaurant_id: restaurant_id,
+                  name: restaurantName,
+                  image_url: imageUrl,
+                },
+              })
+            }
+            rightIcon={isSaved ? "heart" : "heart-outline"}
+            rightNavigationOnPress={() => saveRestaurant()}
+            color="#FFFFFF"
+          />
+        </SafeAreaView>
+      </ImageBackground> */}
+      <View style={[styles.backgroundImage, { backgroundColor: "#aaa" }]}> 
+        {/* Content removed to simplify, Navigation moved outside */}
+      </View>
+
+      {/* Navigation should be outside the ImageBackground/View conditional rendering */}
+      <SafeAreaView style={styles.backgroundImageContainer}>
+        <Navigation
+          leftIcon="arrow-left"
+          leftNavigationOnPress={() => router.back()}
+          middleIcon="note-edit-outline"
+          middleNavigationOnPress={() =>
+            router.push({
+              pathname: "search/add-review",
+              params: {
+                restaurant_id: restaurant_id,
+                name: restaurantName,
+                image_url: imageUrl,
+              },
+            })
+          }
+          rightIcon={isSaved ? "heart" : "heart-outline"}
+          rightNavigationOnPress={() => saveRestaurant()}
+          color="#FFFFFF"
+        />
+      </SafeAreaView>
       <View style={styles.contentContainer}>
         <ScrollView contentContainerStyle={styles.scrollContentContainer}>
           <View style={styles.restaurantInfoContainer}>
@@ -255,24 +283,12 @@ export default function Restaurant() {
               </View>
             </View>
             <Pressable style={styles.directionContainer} onPress={openMaps}>
+              {/* Harita görseli geçici olarak devre dışı bırakıldı */}
               {typeof coordinates["latitude"] === "number" && typeof coordinates["longitude"] === "number" && process.env.EXPO_PUBLIC_GOOGLE_KEY ? (
-                <Image
-                  source={{
-                    uri:
-                      "https://maps.googleapis.com/maps/api/staticmap?center=" +
-                      coordinates["latitude"] +
-                      "," +
-                      coordinates["longitude"] +
-                      "&zoom=15&size=600x300&maptype=roadmap&markers=color:red|" +
-                      coordinates["latitude"] +
-                      "," +
-                      coordinates["longitude"] +
-                      "&key=" +
-                      process.env.EXPO_PUBLIC_GOOGLE_KEY,
-                  }}
-                  style={styles.directionImage}
-                />
-              ) : null}
+                <View style={{ width: '100%', height: 175, borderRadius: 12, backgroundColor: '#ccc' }} />
+              ) : (
+                <View style={{ width: '100%', height: 175, borderRadius: 12, backgroundColor: '#ccc' }} />
+              )}
             </Pressable>
           </View>
           <View style={styles.reviewsContainer}>
@@ -289,10 +305,10 @@ export default function Restaurant() {
                   user_total_reviews={item.user_total_reviews}
                   user_total_saved={item.user_total_saved}
                   review={item.review}
-                  rating={item.rating}
+                  rating={item.review.rating}
                   profile_picture={item.profile_picture}
-                  picture_id={item.picture_id}
-                  image_urls={Array.isArray(item.image_urls) ? item.image_urls.filter((url) => typeof url === "string" && url.startsWith("http")) : []}
+                  picture_id={item.review.picture_id}
+                  image_urls={Array.isArray(item.image_urls) ? item.image_urls : []}
                 />
               )}
             />

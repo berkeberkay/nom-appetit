@@ -19,6 +19,7 @@
       }
     },
     "android": {
+      "package": "app.nomappetit.mobile",
       "adaptiveIcon": {
         "foregroundImage": "./assets/app/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -43,6 +44,9 @@
           "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "TOKEN_KEY": "my-jwt-token"
+    }
   }
 }

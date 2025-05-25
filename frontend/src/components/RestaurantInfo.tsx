@@ -66,6 +66,8 @@ export default function RestaurantInfo(props: RestaurantProps) {
       }
     >
       <View style={styles.container}>
+        {/* Görsel gösterimi devre dışı */}
+        {/*
         {isValidImageUrl(image_url) ? (
           <Image
             source={{ uri: image_url }}
@@ -75,6 +77,8 @@ export default function RestaurantInfo(props: RestaurantProps) {
         ) : (
           <View style={[styles.image, { backgroundColor: "#ccc" }]} />
         )}
+        */}
+        <View style={[styles.image, { backgroundColor: "#ccc" }]} />
         <View style={styles.headerContainer}>
           <Text style={styles.name}>{name}</Text>
         </View>

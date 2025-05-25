@@ -123,11 +123,16 @@ export default function AddReview() {
                   const isValid = isValidImageUrl(item);
                   return (
                     <View style={{ justifyContent: "center", marginHorizontal: 5 }}>
+                      {/* Görsel gösterimi devre dışı */}
+                      {/* Asıl Image bileşeni:
                       {isValid ? (
                         <Image source={{ uri: item }} style={{ width: 70, height: 70, borderRadius: 8 }} />
                       ) : (
                         <View style={{ width: 70, height: 70, borderRadius: 8, backgroundColor: "#ccc" }} />
                       )}
+                      */}
+                      {/* Yerine placeholder View */}
+                      <View style={{ width: 70, height: 70, borderRadius: 8, backgroundColor: "#ccc" }} />
                     </View>
                   );
                 }}

@@ -120,6 +120,8 @@ export default function AddReview() {
                 keyExtractor={(item, index) => item.uri + index.toString()}
                 renderItem={({ item }) => {
                   console.log("SavedAddReview IMAGE SOURCE:", item);
+                  // Görsel önizleme geçici olarak devre dışı bırakıldı
+                  /*
                   const isValid = isValidImageUrl(item);
                   return (
                     <View style={{ justifyContent: "center", marginHorizontal: 5 }}>
@@ -128,6 +130,13 @@ export default function AddReview() {
                       ) : (
                         <View style={{ width: 70, height: 70, borderRadius: 8, backgroundColor: "#ccc" }} />
                       )}
+                    </View>
+                  );
+                  */
+                  // Yerine placeholder View gösteriliyor
+                  return (
+                    <View style={{ justifyContent: "center", marginHorizontal: 5 }}>
+                      <View style={{ width: 70, height: 70, borderRadius: 8, backgroundColor: "#ccc" }} />
                     </View>
                   );
                 }}

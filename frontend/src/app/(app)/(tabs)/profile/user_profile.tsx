@@ -36,7 +36,7 @@ export const Profile = () => {
   const [profile, setProfile] = useState<ProfileInfo>();
   const [userReviews, setUserReviews] = useState<Review[]>([]);
   const [url, setUrl] = useState<string | null>(
-    "https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg"
+    "https://images.unsplash.com/photo-1506744038136-46273834b3fb"
   );
   const [refreshing, setRefreshing] = useState(false);
   const { onLogout } = useSession();
@@ -114,7 +114,7 @@ export const Profile = () => {
 
   const renderProfileHeader = () => (
     <View style={{ paddingBottom: 10 }}>
-      <Image source={{ uri: url }} style={styles.image} />
+      <View style={styles.blankImage} />
       <View style={{ paddingBottom: 15, gap: 5, paddingTop: 15 }}>
         <Text style={styles.fullName}>{profile.name}</Text>
         <Text style={styles.userName}>@{profile.username}</Text>
@@ -156,7 +156,7 @@ export const Profile = () => {
           renderItem={({ item }) => (
             <View style={styles.reviewContainer} key={item.review_id}>
               <View style={styles.reviewContent}>
-                <Image source={{ uri: item.restaurant.restaurant_image_url }} style={styles.reviewImage} />
+                <View style={styles.reviewImage} />
                 <View style={styles.textContainer}>
                   <View style={styles.topContainer}>
                     <Text style={styles.restaurantName}>{item.restaurant.restaurant_name}</Text>

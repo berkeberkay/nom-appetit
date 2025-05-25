@@ -41,7 +41,7 @@ const Register = () => {
   };
 
   const addProfilePicture = async (user_id: string) => {
-    const response = await fetch("https://i.postimg.cc/hvVKRDnP/Untitled-design-1.png");
+    const response = await fetch("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
     const blob = await response.blob();
     const storageRef = ref(FIREBASE_STORAGE, `users/${user_id}.jpg`);
     await uploadBytesResumable(storageRef, blob);

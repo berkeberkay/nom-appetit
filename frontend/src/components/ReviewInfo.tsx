@@ -36,6 +36,8 @@ export const ReviewInfo = (props: ReviewInfoProps) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   const openImage = (index: number) => {
+    // Görsel işleme geçici olarak devre dışı
+    /*
     setImageArray([]);
     for (const imageURL of props.image_urls) {
       if (typeof imageURL === "string" && imageURL.startsWith("http")) {
@@ -47,6 +49,7 @@ export const ReviewInfo = (props: ReviewInfoProps) => {
     }
     setSelectedImageIndex(index);
     setIsVisible(true);
+    */
   };
 
   console.log("ReviewInfo PROFILE PICTURE:", props.profile_picture);
@@ -55,11 +58,15 @@ export const ReviewInfo = (props: ReviewInfoProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.profile}>
+        {/* Profil görseli gösterimi geçici olarak devre dışı */}
+        {/*
         {isValidImageUrl(props.profile_picture) ? (
           <Avatar source={{ uri: props.profile_picture }} size={34} avatarStyle={styles.avatar} />
         ) : (
           <View style={styles.avatar} />
         )}
+        */}
+        <View style={styles.avatar} /> {/* Placeholder view */}
         <View style={styles.profileInfoContainer}>
           <Text style={styles.name}>{props.user_name}</Text>
           <View style={styles.infoTextContainer}>
@@ -80,6 +87,8 @@ export const ReviewInfo = (props: ReviewInfoProps) => {
       <View style={styles.reviewTextContainer}>
         <Text style={styles.reviewText}>{props.review}</Text>
       </View>
+      {/* Yorum görselleri gösterimi geçici olarak devre dışı */}
+      {/*
       {Array.isArray(props.image_urls) && props.image_urls.filter(isValidImageUrl).length > 0 && (
         <ScrollView style={styles.imageContainer} contentContainerStyle={styles.imageContainerStyle} horizontal>
           {props.image_urls.filter(isValidImageUrl).map((imageUri, index) => (
@@ -90,6 +99,7 @@ export const ReviewInfo = (props: ReviewInfoProps) => {
         </ScrollView>
       )}
       <ImageView images={imageArray} imageIndex={selectedImageIndex} visible={visible} onRequestClose={() => setIsVisible(false)} />
+      */}
     </View>
   );
 };

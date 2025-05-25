@@ -16,7 +16,8 @@ export default function SearchPage() {
   const [errorStatus, setErrorStatus] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  useEffect(() => {
+  useEffect(() => 
+    {
     getUserRecommendations(false);
   }, []);
 
